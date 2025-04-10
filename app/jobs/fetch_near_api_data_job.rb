@@ -17,7 +17,7 @@ class FetchNearApiDataJob < ApplicationJob
   rescue StandardError => e
     Rails.logger.error("FetchNearApiDataJob error: #{e.message}")
 
-    create_data_update(true, "Error", e.message, started_at, Time.now)
+    create_data_update(false, "Error", e.message, started_at, Time.now)
   end
 
   private

@@ -1,0 +1,4 @@
+fetch_near_api_data:
+  cron: "0 * * * *" 
+  class: "FetchNearApiDataJob"
+  queue: default

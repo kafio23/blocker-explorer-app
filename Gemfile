@@ -71,3 +71,9 @@ gem "tailwindcss-rails", "~> 4.2"
 gem "faraday", "~> 2.12.2"
 
 gem "webmock", "~> 3.0"
+
+gem "redis"
+
+gem "sidekiq", "~> 8.0"
+
+gem "sidekiq-cron", "~>  2.2.0"
