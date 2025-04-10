@@ -21,7 +21,7 @@ module NearApi
         Rails.logger.error("Near API connection failed")
         nil
       rescue StandardError => e
-        Rails.logger.error("Near Weather API error: #{e.message}")
+        Rails.logger.error("Near API error: #{e.message}")
         nil
       end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_10_162530) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_10_180136) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -36,7 +36,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_10_162530) do
   create_table "data_updates", force: :cascade do |t|
     t.integer "job_id"
     t.text "logs"
-    t.text "errors"
+    t.text "job_errors"
     t.boolean "success", default: false
     t.datetime "started_at", precision: nil
     t.datetime "finished_at", precision: nil
