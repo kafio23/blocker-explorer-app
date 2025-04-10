@@ -25,4 +25,14 @@ class TransactionTest < ActiveSupport::TestCase
 
     assert_not transaction.valid?
   end
+
+  test "shows transfer transactions" do
+    assert_equal(Transaction.with_transfer_actions.size, 1)
+  end
+
+  test "shows one transaction deposit" do
+    transaction = Transaction.with_transfer_actions.first
+
+    assert(456, transaction.transfer_action_deposit)
+  end
 end
