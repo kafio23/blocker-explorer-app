@@ -67,3 +67,7 @@ end
 gem "tailwindcss-ruby", "~> 4.1"
 
 gem "tailwindcss-rails", "~> 4.2"
+
+gem "faraday", "~> 2.12.2"
+
+gem "webmock", "~> 3.0"
