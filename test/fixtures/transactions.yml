@@ -1,0 +1,20 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: 1
+  transaction_hash: 234bcd
+  sender: MyString
+  receiver: MyString
+  block_hash: 123abc
+
+two:
+  transaction_hash: 876xyz
+  sender: MyString
+  receiver: MyString
+  block_hash: 123abc
+
+three:
+  transaction_hash: 674gfs
+  sender: MyString
+  receiver: MyString
+  block_hash: 987zxy
