@@ -1,7 +1,7 @@
 # Block Explorer App
 
 ## Overview
-This project is a block explorer for the NEAR API built with Ruby on Rails. The main goal of this application is to allow users to explore historical and new transactions. It uses a background Job (executed by Sidekiq Cron) to pull data from NEAR API every hour and create new entities in a PostgreSQL database: blocks, transactions and actions.
+This project is a block explorer for the NEAR API built with Ruby on Rails. The main goal of this application is to allow users to explore historical and new transactions. It uses a background Job (executed by Sidekiq Cron) to pull data from NEAR API every hour and create new entities in a PostgreSQL database: blocks, transactions, and actions.
 
 ## Requirements
 - Ruby: 3.4
@@ -40,21 +40,23 @@ Set up the following environment variables:
 * `DataUpdates`: to track the Job (FetchNearApiDataJob) that pulls data from NEAR API and stores them in the Database.
 
 ### Jobs
-* `FetchNearApiDataJob`: Sidekiq Cron runs every hour to fetch new data from the NEAR API, processing new blocks, transactions and actions. It uses the block height field (an incrementing integer) to ensure that it **is not** adding or preocessing duplicate blocks, transactions and actions.
+* `FetchNearApiDataJob`: Sidekiq Cron runs every hour to fetch new data from the NEAR API, processing new blocks, transactions and actions. It uses the block height field (an incrementing integer) to ensure that it **is not adding or processing duplicate blocks**, transactions and actions.
 
 ### External Services
 * `NearApi::Fetch`: this class interacts with NEAR API in order to fetch transactions data. 
 
 ## How it works
 ### Condition
-The NEAR API is show the latest transactions records added and the data is updated every hour. It is possible that old transactions are no longer showed.
+- The NEAR API shows the latest transaction records added and the data is updated every hour. It is possible that old transactions are no longer shown.
 
 ### Approach
-- Every hour Sidekiq Cron executes `FetchNearApiDataJob`. This Job pulls transactions data from `NearApi::Fetch` and processes the records **filtering out** the transactions with height lower than the last block height in our local database (Blocks table).
+- Every hour Sidekiq Cron executes `FetchNearApiDataJob`. This Job pulls transactions data from `NearApi::Fetch` and processes the records **filtering out** the transactions with height lower than the last block height in our local database (Blocks table). Thus, only new records will  be processed.
 
-- The Job is also using `find_or_create_by!` to ensure that there is no duplicate records.
+- The Job is also using `find_or_create_by!` to ensure that there are no duplicate records.
 
-- The view is showing `sender`, `receiver` and `deposit` of the transaction records with **action: "Transfer"** thanks to the following scope:
+- A new DataUpdate record is created to track Job execution history. It stores the errors if the Job fails.
+
+- The view is showing the `sender`, `receiver` and `deposit` of the transaction records with the **action: "Transfer"** thanks to the following scope:
 ```ruby
 scope :with_transfer_actions, -> { joins(:actions).where(actions: { action_type: TRANSFER_TYPE }).distinct }
 ```
