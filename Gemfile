@@ -77,6 +77,6 @@ gem "redis"
 
 gem "sidekiq", "~> 8.0"
 
-gem "sidekiq-cron", "~>  2.2.0"
+gem "sidekiq-cron", "~> 2.3.0"
 
 gem "kaminari", "~> 1.2.2"
